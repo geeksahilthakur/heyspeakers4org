@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>User Display - HeySpeakers</title>
+  
+    <style>
+        :root {
+    --primary-color: #8e55ff;
+    --secondary-color: #f8f9fa;
+    --accent-color: #ffd700;
+    --text-color: #333;
+    --text-light: #666;
+    --card-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.header {
+    background-color: #ffffff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 0.5rem; /* Reduced padding for the header */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    max-width: 150px;
+    height: auto;
+}
+
+.filter-container {
+    display: flex;
+    align-items: center;
+}
+
+.filter-select {
+    padding: 10px 15px;
+    border: 2px solid var(--primary-color);
+    border-radius: 25px;
+    width: 200px;
+    font-size: 16px;
+    margin-right: 10px;
+    background-color: white;
+    color: var(--text-color);
+    appearance: none; /* Hide default dropdown */
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Cpath%20fill%3D%22%238e55ff%22%20d%3D%22M4.293%207.293l4%204%204-4%201.414%201.414-5.414%205.414-5.414-5.414z%22%2F%3E%3C%2Fsvg%3E');
+    background-repeat: no-repeat;
+    background-position: right 10px top 50%;
+    background-size: 12px auto;
+}
+
+.content {
+    padding: 2rem 0;
+    margin-bottom: 80px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
+    text-align: center;
+    position: relative;
+}
+
+h1::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 4px;
+    background-color: var(--accent-color);
+    margin: 10px auto 0;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -15px;
+    justify-content: center; /* Center the user cards */
+}
+
+.user-card {
+    flex: 0 0 calc(25% - 30px); /* Reduced width for desktop view */
+    margin: 15px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: var(--card-shadow);
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.user-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-image {
+    height: 200px; /* Reduced height for profile image */
+    width: 100%;
+    object-fit: cover;
+    transition: var(--transition);
+}
+
+.user-card:hover .profile-image {
+    transform: scale(1.05);
+}
+
+.card-body {
+    padding: 1rem; /* Reduced padding for card body */
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+}
+
+.card-text {
+    color: var(--text-light);
+    margin-bottom: 0.5rem;
+}
+
+.talk-button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 20px; /* Reduced padding for button */
+    border-radius: 25px;
+    cursor: pointer;
+    transition: var(--transition);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    align-self: stretch;
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.talk-button:hover {
+    background-color: #8e55ff;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.bottom-nav {
+    background-color: #ffffff;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    padding: 15px;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.bottom-nav button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: var(--transition);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0 10px;
+}
+
+.bottom-nav button:hover {
+    background-color: #8e55ff;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 1024px) {
+    .user-card {
+        flex: 0 0 calc(50% - 30px);
+    }
+}
+
+@media (max-width: 768px) {
+    .content {
+        padding: 2rem 1rem;
+    }
+
+    .user-card {
+        flex: 0 0 calc(100% - 30px); /* Adjust to take full width minus margin */
+        margin: 15px; /* Keep margin for spacing */
+        max-width: 90%; /* Set a maximum width for centering */
+    }
+
+    .card-body {
+        padding: 1.5rem 2rem;
+    }
+
+    .header-content {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .logo {
+        margin-bottom: 1rem;
+    }
+
+    .filter-container {
+        width: 100%;
+    }
+
+    .filter-select {
+        width: 100%;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .talk-button {
+        padding: 14px 28px;
+        font-size: 1rem;
+    }
+}
+
+    </style>
+ 
+   
+</head>
+
+<body>
+    <header class="header">
+        <div class="header-content">
+            <img src="logo.png" alt="HeySpeakers Logo" class="logo">
+            <div class="filter-container">
+                <select class="filter-select" id="expertiseSelect" onchange="filterUsers()">
+                    <option value="">All Expertise</option>
+                </select>
+            </div>
+        </div>
+    </header>
+
+    <div class="content">
+        <div class="container">
+            <h1>Find your next speaker</h1>
+            <div class="row" id="userCardsContainer"></div>
+        </div>
+    </div>
+
+    <div class="bottom-nav">
+        <button onclick="location.href='home.html'">Home</button>
+        <button onclick="location.href='about.html'">About</button>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyAf6os8jnKXLsSIPYulri9H0Wehv_QtmZY",
+            authDomain: "heyspeakers.firebaseapp.com",
+            projectId: "heyspeakers",
+            storageBucket: "heyspeakers.appspot.com",
+            messagingSenderId: "100289054827",
+            appId: "1:100289054827:web:483ecbe9353911d94e892e"
+        };
+        firebase.initializeApp(firebaseConfig);
+
+        let allUsers = [];
+        let expertiseOptions = new Set();
+
+        function loadUsers() {
+            const db = firebase.database();
+            db.ref('users').once('value').then((snapshot) => {
+                allUsers = snapshot.val();
+                displayUsers(allUsers);
+                populateExpertiseOptions(allUsers);
+            }).catch((error) => {
+                console.error("Error loading users: ", error);
+                alert("Failed to load user data. Please try again later.");
+            });
+        }
+
+        function populateExpertiseOptions(users) {
+            const expertiseSelect = document.getElementById('expertiseSelect');
+            for (let uid in users) {
+                const user = users[uid];
+                if (user && user.expertise) {
+                    expertiseOptions.add(user.expertise);
+                }
+            }
+            expertiseOptions.forEach(expertise => {
+                const option = document.createElement('option');
+                option.value = expertise;
+                option.textContent = expertise;
+                expertiseSelect.appendChild(option);
+            });
+        }
+
+        function displayUsers(users) {
+            const userCardsContainer = document.getElementById('userCardsContainer');
+            userCardsContainer.innerHTML = '';
+
+            for (let uid in users) {
+                const user = users[uid];
+                if (user) {
+                    const card = `
+                        <div class="user-card" data-expertise="${user.expertise.toLowerCase()}">
+                            <div class="card">
+                                <img src="${user.profileImage || 'https://via.placeholder.com/250'}" class="profile-image" alt="${user.fullName}">
+                                <div class="card-body">
+                                    <div>
+                                        <h5 class="card-title">${user.fullName}</h5>
+                                        <p class="card-text">Expertise: ${user.expertise}</p>
+                                        <p class="card-text">Interested In: ${user.interestedIn}</p>
+                                    </div>
+                                    <button class="talk-button" onclick="redirectToUserInfo('${uid}')">Talk!</button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    userCardsContainer.innerHTML += card;
+                }
+            }
+        }
+
+        function redirectToUserInfo(uid) {
+            window.location.href = `displayUserInfo.html?uid=${uid}`;
+        }
+
+        function filterUsers() {
+            const selectedExpertise = document.getElementById('expertiseSelect').value.toLowerCase();
+            const userCards = document.querySelectorAll('.user-card');
+
+            userCards.forEach(card => {
+                const expertise = card.getAttribute('data-expertise');
+                if (!selectedExpertise || expertise === selectedExpertise) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        window.onload = function () {
+            loadUsers();
+        };
+    </script>
+</body>
+
+</html>
